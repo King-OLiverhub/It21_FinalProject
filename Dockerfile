@@ -32,6 +32,9 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-plugin
 # Copy application code
 COPY . ./
 
+# Create .env from the example so Laravel commands work during build
+RUN cp .env.example .env
+
 # Install node if needed for assets build
 RUN apt-get install -y nodejs npm \
     && npm install \
