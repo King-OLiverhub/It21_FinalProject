@@ -46,5 +46,5 @@ RUN php artisan key:generate --ansi
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# Use the built-in PHP server on Render's port so HTTP is available
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8000} -t public"]
