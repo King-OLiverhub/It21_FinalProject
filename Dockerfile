@@ -32,6 +32,10 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-plugin
 # Copy application code
 COPY . ./
 
+# Ensure Laravel cache directories exist and are writable
+RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
+
 # Create .env from the example so Laravel commands work during build
 RUN cp .env.example .env
 
